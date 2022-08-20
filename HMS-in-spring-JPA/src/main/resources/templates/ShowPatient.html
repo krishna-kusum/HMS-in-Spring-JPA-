@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h2>Patient Detail</h2>
+<table border="1">
+	<tr>
+		<th>Patient ID</th>
+		<th>Name</th>
+		<th>Gender</th>
+		<th>Age</th>
+		<th>Contact No.</th>
+		<th>Symptoms</th>
+	</tr>
+	<tr>
+		<td th:text="${patient.personId}"></td>
+		<td th:text="${patient.name}"></td>
+		<td th:text="${patient.gender}"></td>
+		<td th:text="${patient.age}"></td>
+		<td th:text="${patient.contactNumber}"></td>
+		<td th:text="${patient.symptoms}"></td>
+	</tr>
+</table>
+<br> <br>
+<a href="./">Go To Main Page</a>
+</body>
+</html>

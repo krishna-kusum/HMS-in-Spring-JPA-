@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h2>Schedule Details</h2>
+<table border="1">
+	<tr>
+		<th>Doctor ID</th>
+		<th>Name</th>
+		<th>Available Day</th>
+		<th>Slot Start</th>
+		<th>Slot End</th>
+		
+	</tr>
+	<tr>
+		<td th:text="${schedule.doctor_id}"></td>
+		<td th:text="${schedule.name_of_doctor}"></td>
+		<td th:text="${schedule.available_day}"></td>
+		<td th:text="${schedule.slot_start}"></td>
+		<td th:text="${schedule.slot_end}"></td>
+		
+	</tr>
+</table>
+<br> <br>
+<a href="./">Go To Main Page</a>
+</body>
+</html>
