@@ -10,43 +10,24 @@ import org.springframework.stereotype.Service;
 import com.bean.Appointment;
 import com.bean.Patient;
 import com.bean.Schedule;
-import com.model.persistence.AppointmentDaoImpl;
-import com.model.persistence.DoctorDaoImpl;
-import com.model.persistence.PatientDaoImpl;
-import com.model.persistence.ScheduleDaoImpl;
+import com.model.persistence.AppointmentDao;
+import com.model.persistence.DoctorDao;
+import com.model.persistence.PatientDao;
+import com.model.persistence.ScheduleDao;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
 
-	PatientDaoImpl patientDaoImpl;
-	ScheduleDaoImpl scheduleDaoImpl;
-	DoctorDaoImpl doctorDaoImpl;
-	AppointmentDaoImpl appointmentDaoImpl;
+	@Autowired
+	PatientDao patientDao;
+	@Autowired
+	ScheduleDao scheduleDao;
+	@Autowired
+	DoctorDao doctorDao;
+	@Autowired
+	AppointmentDao appointmentDao;
 	
-	@Autowired
-	public void setPatientDaoImpl(PatientDaoImpl patientDaoImpl) {
-		this.patientDaoImpl = patientDaoImpl;
-	}
-
-	@Autowired
-	public void setScheduleDaoImpl(ScheduleDaoImpl scheduleDaoImpl) {
-		this.scheduleDaoImpl = scheduleDaoImpl;
-	}
-
-	@Autowired
-	public void setDoctorDaoImpl(DoctorDaoImpl doctorDaoImpl) {
-		this.doctorDaoImpl = doctorDaoImpl;
-	}
-
-	@Autowired
-	public void setAppointmentDaoImpl(AppointmentDaoImpl appointmentDaoImpl) {
-		this.appointmentDaoImpl = appointmentDaoImpl;
-	}
-
-	@Override
-	public Patient getPatientProfile(String patientId) {
-		return patientDaoImpl.getPatientById(patientId);		
-	}
+	
 
 	@Override
 	public boolean updatePatientProfile(String doctorId, String patientId, Map<String, String> editList) {
@@ -56,19 +37,19 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public Schedule getDoctorSchedule(String doctorId) {
-		return scheduleDaoImpl.getDoctorSchedule(doctorId);
+		return scheduleDao.findScheduleByDoctorId(doctorId);
 	}
 
 	@Override
 	public boolean updateDoctorSchedule(String doctorId, Schedule schedule) {
-		if(scheduleDaoImpl.removeDoctorSchedule(doctorId))
-			return scheduleDaoImpl.addDoctorSchedule(schedule);
-		return false;
+		scheduleDao.deleteScheduleByDoctorId(doctorId);
+		scheduleDao.saveSchedule(schedule);
+		return true;
 	}
 
 	@Override
 	public List<Schedule> getAvailableDoctors(Date date) {
-		return doctorDaoImpl.getAvailableDoctors(date);
+		return doctorDao.getAvailableDoctors(date);
 	}
 
 	@Override
@@ -86,7 +67,13 @@ public class DoctorServiceImpl implements DoctorService {
 	
 	@Override
 	public List<Appointment> getMyAppointments(String id, int choice) {
-		return appointmentDaoImpl.getAllAppointments(id, choice);
+		return appointmentDao.getAllAppointments(id, choice);
+	}
+
+	@Override
+	public Patient getPatientProfile(String patientId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

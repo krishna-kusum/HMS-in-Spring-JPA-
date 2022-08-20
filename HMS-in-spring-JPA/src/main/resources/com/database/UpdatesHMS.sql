@@ -31,15 +31,7 @@ id varchar(5) not null,
 password varchar(15)
 );
 
-create table regular_schedule(
-doctor_id varchar(5) not null,
-name_of_doctor varchar(25) not null,
-available_day varchar(10) not null,
-slot_start time not null,
-slot_end time not null,
-constraint fk_docId foreign key(doctor_id)
-references doctor(doctor_id)
-);
+
 
 drop table appointments;
 
@@ -74,17 +66,7 @@ values('P101','Bhuwnesh', 'm', 24, '9876987655', '11, Welcome Shpg Centre, Old P
       ('P103','Krishna','f',22,'98647638', '5, Sait Clny 2nd St, Egmore','Cardiologists'),
       ('P104','Suyesh','m',23,'7860992748','20/30/a, Ganga Ind Estate, P L Lokhande Marg, Chembur','Neurologists');
 
-insert ignore into regular_schedule
-values('D1000','Dr Pullen','Monday','10:00','12:00'),
-	  ('D1001','Dr Fillmore','Monday','12:00','02:00'),
-      ('D1002','Dr Mangle','Tuesday','10:00','1:00'),
-      ('D1003','Dr Ken Hurt','Thursday','01:00','05:00'),
-      ('D1004','Dr B. Sick','Saturday','12:00','03:00'),
-      ('D1005','Dr Watamaniuk','Monday','05:00','08:00'),
-      ('D1006','Dr Lipp','Tuesday','12:00','2:00'),
-      ('D1007','Dr Carey','Friday','03:00','05:00'),
-      ('D1008','Dr Nervo','Wednesday','04:00','06:00'),
-      ('D1009','Dr Hurt','Sunday','12:00','2:00');
+
 
 insert into login_credentials values('A1001', '@dmin$$');
 insert into login_credentials values('D1000','D1000');
@@ -158,3 +140,28 @@ values("D1000","D1000"),
 
 insert into admin_login
 values("A1001","@dmin$$");
+
+drop table regular_schedule;
+
+create table regular_schedule(
+schedule_id int primary key auto_increment,
+doctor_id varchar(5) not null,
+name_of_doctor varchar(25) not null,
+available_day varchar(10) not null,
+slot_start time not null,
+slot_end time not null,
+constraint fk_docId foreign key(doctor_id)
+references doctor(doctor_id)
+);
+
+insert ignore into regular_schedule(doctor_id,name_of_doctor,available_day,slot_start,slot_end)
+values('D1000','Dr Pullen','Monday','10:00','12:00'),
+	  ('D1001','Dr Fillmore','Monday','12:00','02:00'),
+      ('D1002','Dr Mangle','Tuesday','10:00','1:00'),
+      ('D1003','Dr Ken Hurt','Thursday','01:00','05:00'),
+      ('D1004','Dr B. Sick','Saturday','12:00','03:00'),
+      ('D1005','Dr Watamaniuk','Monday','05:00','08:00'),
+      ('D1006','Dr Lipp','Tuesday','12:00','2:00'),
+      ('D1007','Dr Carey','Friday','03:00','05:00'),
+      ('D1008','Dr Nervo','Wednesday','04:00','06:00'),
+      ('D1009','Dr Hurt','Sunday','12:00','2:00');
