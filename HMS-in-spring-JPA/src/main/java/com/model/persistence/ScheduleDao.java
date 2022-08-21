@@ -22,7 +22,7 @@ public interface ScheduleDao extends JpaRepository<Schedule,Integer>{
 	
 	@Modifying
 	@Transactional
-	@Query("delete from schedule where doctorId = :doctorId")
+	@Query(value = "delete from Schedule where doctorId = :doctorId")
 	void deleteScheduleByDoctorId(@Param("doctorId") String doctorId);
 	
 //	boolean removeDoctorSchedule(String doctorId);
