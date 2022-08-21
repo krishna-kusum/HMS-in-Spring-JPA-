@@ -39,7 +39,7 @@ public class CommonController {
 	@Autowired
 	private DoctorService doctorService;
 	@Autowired
-	private PatientServiceImpl patientService;
+	private PatientService patientService;
 	
 	@RequestMapping("/")
 	public ModelAndView homePageController() {
@@ -76,15 +76,18 @@ public class CommonController {
 
 		session.setAttribute("userName", userName);
 		
+		
 		 if(validate.isAdmin(userName, password)) {
-			modelAndView.setViewName("adminPostLogin");
+			 if(userName.toUpperCase().charAt(0) == 'A' ) {
+				 
+				 modelAndView.setViewName("adminPostLogin");
+			 }else if(userName.toUpperCase().charAt(0) == 'D' ) {
+				 modelAndView.setViewName("doctorPostLogin");
+			 }else  if(userName.toUpperCase().charAt(0) == 'P' ) {
+				 modelAndView.setViewName("patientPostLogin");
+			 }
 		}
-		else if(validate.isDoctor(userName, password)) {
-			modelAndView.setViewName("doctorPostLogin");
-		}else if(validate.isPatient(userName, password)) {
-			modelAndView.setViewName("patientPostLogin");
-		} 
-		 
+		
 		
 //		if(userName.equalsIgnoreCase("Admin") && password.equalsIgnoreCase("123")) {
 //			modelAndView.setViewName("adminPostLogin");
@@ -113,7 +116,7 @@ public class CommonController {
 		
 		String message = null;
 		if (patientService.addPatient(patient))
-			message = "Patient Addded Successfully";
+			message = "Patient Added Successfully";
 		else
 			message = "Patient Addition Failed";
 
@@ -248,7 +251,7 @@ public ModelAndView removeDoctorController(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		String id = (String)session.getAttribute("userName");
-		List<Appointment> appointments = patientService.getMyAppointments(id, 1);
+		List<Appointment> appointments = patientService.getMyAppointments(id);
 		
 		
 		if(!appointments.isEmpty()) {
@@ -290,7 +293,7 @@ public ModelAndView removeDoctorController(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		String id = (String) session.getAttribute("userName");
-		List<Appointment> appointments = patientService.getMyAppointments(id, 1);
+		List<Appointment> appointments = patientService.getMyAppointments(id);
 		
 		
 		if(!appointments.isEmpty()) {
@@ -312,7 +315,7 @@ public ModelAndView removeDoctorController(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		String id = (String) session.getAttribute("userName");
-		List<Appointment> appointments = patientService.getMyAppointments(id, 1);
+		List<Appointment> appointments = patientService.getMyAppointments(id);
 		
 		
 		if(!appointments.isEmpty()) {

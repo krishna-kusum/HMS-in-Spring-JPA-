@@ -4,11 +4,13 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.bean.Appointment;
 import com.bean.Doctor;
 import com.bean.Patient;
 import com.bean.Schedule;
-
+@Service
 public interface DoctorService {
 	
 	
@@ -27,7 +29,7 @@ public interface DoctorService {
 	
 	Schedule getDoctorSchedule(String doctorId);
 	
-	List<Appointment> getMyAppointments(String id, int choice);
+	List<Appointment> getMyAppointments(String id);
 	
 //	boolean updatePatientProfile(String doctorId, String patientId, Map<String,String> editList);
 //	

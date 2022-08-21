@@ -2,8 +2,10 @@ package com.model.service;
 
 import java.util.List;
 
-import com.bean.PrevSlots;
+import org.springframework.stereotype.Service;
 
+import com.bean.PrevSlots;
+@Service
 public interface AppointmentService {
-	List<PrevSlots> prevSlots(String dId);
+//	List<PrevSlots> prevSlots(String dId);
 }

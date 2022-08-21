@@ -79,8 +79,8 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public String getLastDoctorId() {
-		// TODO Auto-generated method stub
-		return doctorDao.getLastDoctorId();
+		Doctor doctor = doctorDao.findTopByOrderByDoctorIdDesc();
+		return doctor.getDoctorId();
 	}
 
 	@Override
@@ -97,12 +97,13 @@ public class DoctorServiceImpl implements DoctorService {
 	
 	@Override
 	public Schedule getDoctorSchedule(String doctorId) {
-		return scheduleDao.findScheduleByDoctorId(doctorId);
+		
+		return scheduleDao.findByDoctorId(doctorId);
 	}
 	
 	@Override
-	public List<Appointment> getMyAppointments(String id, int choice) {
-		return appointmentDao.getAllAppointmentsById(id, choice);
+	public List<Appointment> getMyAppointments(String id) {
+		return appointmentDao.getAllAppointmentsByDoctorId(id);
 	}
 
 //	@Autowired

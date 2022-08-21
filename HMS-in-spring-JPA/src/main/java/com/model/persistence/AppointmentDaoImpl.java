@@ -19,7 +19,6 @@ import org.springframework.stereotype.Repository;
 
 import com.bean.Appointment;
 import com.bean.PrevSlots;
-import com.model.persistence.helper.AppointmentRowMapper;
 
 
 @Repository

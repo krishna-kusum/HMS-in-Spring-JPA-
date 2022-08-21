@@ -3,9 +3,11 @@ package com.model.service;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.bean.Doctor;
 import com.bean.Schedule;
-
+@Service
 public interface AdminService {
 
 	boolean generateAppointment(String patientId); 

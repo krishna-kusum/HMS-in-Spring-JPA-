@@ -8,13 +8,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.bean.Doctor;
+import com.bean.Patient;
 import com.bean.Schedule;
 
 @Repository
 public interface DoctorDao extends JpaRepository<Doctor, String>{
 
-	@Query("SELECT d FROM doctor d ORDER BY d.doctor_id DESC LIMIT 1")
-	String getLastDoctorId();
+//	@Query("SELECT d FROM Doctor d ORDER BY d.doctorId DESC LIMIT 1")
+//	Doctor getLastDoctorDetails();
+	
+	Doctor findTopByOrderByDoctorIdDesc();
 	
 //	String searchDoctorId(String doctorName);
 //	

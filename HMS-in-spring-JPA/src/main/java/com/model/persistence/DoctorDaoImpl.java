@@ -19,7 +19,6 @@ import org.springframework.stereotype.Repository;
 
 import com.bean.Doctor;
 import com.bean.Schedule;
-import com.model.persistence.helper.DoctorRowMapper;
 
 
 

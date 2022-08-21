@@ -8,26 +8,24 @@ import org.springframework.stereotype.Service;
 
 import com.bean.Doctor;
 import com.bean.Schedule;
+import com.model.persistence.DoctorDao;
 import com.model.persistence.DoctorDaoImpl;
+import com.model.persistence.PatientDao;
 import com.model.persistence.PatientDaoImpl;
+import com.model.persistence.ScheduleDao;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-	DoctorDaoImpl doctorDaoImpl;
-	PatientDaoImpl patientDaoImpl;
+	@Autowired
+	private DoctorDao doctorDao;
+	@Autowired
+	private PatientDao patientDao;
+	@Autowired
+	private ScheduleDao scheduleDao;
 	
 	@Autowired
 	private DoctorService doctorService;
 
-	@Autowired
-	public void setDoctorDaoImpl(DoctorDaoImpl doctorDaoImpl) {
-		this.doctorDaoImpl = doctorDaoImpl;
-	}
-
-	@Autowired
-	public void setPatientDaoImpl(PatientDaoImpl patientDaoImpl) {
-		this.patientDaoImpl = patientDaoImpl;
-	}
 
 	
 	@Override
@@ -52,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public List<Schedule> getAvailableDoctors(Date date) {
-		return doctorDaoImpl.getAvailableDoctors(date);
+		return scheduleDao.getAvailableDoctors(date);
 	}
 
 	

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bean.Appointment;
+import com.bean.Doctor;
 import com.bean.Patient;
+import com.model.persistence.AppointmentDao;
 import com.model.persistence.AppointmentDaoImpl;
 import com.model.persistence.PatientDao;
 import com.model.persistence.PatientDaoImpl;
@@ -19,6 +21,8 @@ public class PatientServiceImpl implements PatientService {
 
 	@Autowired
 	private PatientDao patientDao;
+	@Autowired
+	private AppointmentDao appointmentDao;
 	@Override
 	public List<Patient> getAllPatient() {
 		// TODO Auto-generated method stub
@@ -29,7 +33,7 @@ public class PatientServiceImpl implements PatientService {
 	public boolean addPatient(Patient patient) {
 		// TODO Auto-generated method stub
 		Patient patient2 = new Patient();
-		patient2.setPatientId(setPatientId());
+		patient2.setPatientId(setNewPatientId());
 		patient2.setPatientName(patient.getPatientName());
 		patient2.setPatientGender(patient.getPatientGender());
 		patient2.setPatientAge(patient.getPatientAge());
@@ -67,17 +71,17 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public String getLastPatientId() {
-		// TODO Auto-generated method stub
-		return patientDao.getLastPatientId();
+		Patient patient = patientDao.findTopByOrderByPatientIdDesc();
+		return patient.getPatientId();
 	}
 
 	@Override
-	public String setPatientId() {
+	public String setNewPatientId() {
 		// TODO Auto-generated method stub
 		String lastId = getLastPatientId();
 		if(lastId != null) {
 			int id = Integer.parseInt(lastId.substring(1));
-			id++;
+			++id;
 			return ("P"+id);
 		}else
 			return "P101";
@@ -96,10 +100,13 @@ public class PatientServiceImpl implements PatientService {
 //		this.patientDaoImpl = patientDaoImpl;
 //	}
 //
-//	@Override
-//	public boolean rescheduleAppointment(int aid, Date newDate) {
-//		return appointmentDaoImpl.reschedule(aid, newDate);
-//	}
+	@Override
+	public boolean rescheduleAppointment(int aid, Date newDate) {
+		int rows = appointmentDao.reschedule(aid, newDate);
+		if(rows >0)
+			return true;
+		return false;
+	}
 //
 //	@Override
 //	public void getPatientProfile(String id) {
@@ -112,20 +119,26 @@ public class PatientServiceImpl implements PatientService {
 //		return patientDaoImpl.getLastPId();
 //	}
 //	
-//	@Override
-//	public List<Appointment> getMyAppointments(String pid, int choice) {
-//		return appointmentDaoImpl.getAllAppointments(pid, choice);
-//	}
+	@Override
+	public List<Appointment> getMyAppointments(String pid) {
+		return appointmentDao.getAllAppointmentsByPatientId(pid);
+	}
 //
 //	@Override
 //	public void requestAppointment(String id, String doc_id, Date date) {
 //		appointmentDaoImpl.appointment(id, doc_id, date);
 //	}
 //
-//	@Override
-//	public boolean cancelAppointmentRequest(int nextInt) {
-//		return appointmentDaoImpl.cancelAppointment(nextInt);
-//	}
+	@Override
+	public boolean cancelAppointmentRequest(int aid) {
+		Optional<Appointment> appointment = appointmentDao.findById(aid);
+		if(appointment.isPresent()) {
+			appointmentDao.deleteById(aid);
+			return true;
+		}
+		else
+			return false;
+	}
 
 
 }

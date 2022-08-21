@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bean.Patient;
-import com.model.persistence.helper.PatientRowMapper;
 
 
 public class PatientDaoImpl  {

@@ -23,7 +23,7 @@ public class DoctorController {
 		ModelAndView modelAndView = new ModelAndView();
 		String id = (String) session.getAttribute("userName");
 		String message ;
-		List<Appointment> appointmentDoc = doctorService.getMyAppointments(id, 2);
+		List<Appointment> appointmentDoc = doctorService.getMyAppointments(id);
 		if(appointmentDoc.isEmpty()) {
 			message = "No appointments requested.";
 			modelAndView.addObject("message", message);
