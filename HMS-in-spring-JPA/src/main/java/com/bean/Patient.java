@@ -1,5 +1,9 @@
 package com.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,32 +11,36 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Patient extends Person{
-
-	private String address;
-	private int counter;
-	private String symptoms;
-
-	public Patient(String personId, String Name, int age, String gender, String contactNumber, String symptoms,
-		String address) {
-		super(personId, Name, age, gender, contactNumber, null);
-		this.address = address;
-		this.symptoms = symptoms;
-	}
-
-	public void setCounter(int counter) {
-		this.counter = counter + 1;
+@Entity
+public class Patient{
+	@Id
+	@Column(name = "patient_id")
+	private String patientId;
+	@Column(name = "name_of_patient")
+	private String patientName;
+	@Column(name = "gender")
+	private String patientGender;
+	@Column(name = "age")
+	private int patientAge;
+	@Column(name = "Contact_number")
+	private String patientContact;
+	@Column(name = "Address")
+	private String patientAddress;
+	@Column(name = "department")
+	private String patientSymptoms;
+	public Patient(String patientName, String patientGender, int patientAge, String patientContact,
+			String patientAddress, String patientSymptoms) {
+		super();
+		this.patientName = patientName;
+		this.patientGender = patientGender;
+		this.patientAge = patientAge;
+		this.patientContact = patientContact;
+		this.patientAddress = patientAddress;
+		this.patientSymptoms = patientSymptoms;
 	}
 	
-	public int getCounter() {
-		return counter;
-	}
+	
 
-	@Override
-	public String toString() {
-		return "Patient [PersonId=" + getPersonId() + ", Name=" + getName()
-				+ ", Age=" + getAge() + ", Gender=" + getGender() + ", ContactNumber="
-				+ getContactNumber() + ", Symptoms=" + getSymptoms() + ", address=" + getAddress() +"]";
-	}
+	
 
 }
