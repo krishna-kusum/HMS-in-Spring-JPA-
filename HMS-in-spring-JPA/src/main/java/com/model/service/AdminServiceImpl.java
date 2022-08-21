@@ -15,6 +15,9 @@ public class AdminServiceImpl implements AdminService {
 
 	DoctorDaoImpl doctorDaoImpl;
 	PatientDaoImpl patientDaoImpl;
+	
+	@Autowired
+	private DoctorService doctorService;
 
 	@Autowired
 	public void setDoctorDaoImpl(DoctorDaoImpl doctorDaoImpl) {
@@ -39,12 +42,12 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public boolean registerDoctorToDatabase(Doctor doctor) {
-		return doctorDaoImpl.addDoctor(doctor);
+		return doctorService.addDoctor(doctor);
 	}
 
 	@Override
 	public boolean removeDoctorFromDatabase(String doctorID) {
-		return doctorDaoImpl.removeDoctor(doctorID);
+		return doctorService.deleteDoctor(doctorID);
 	}
 
 	@Override

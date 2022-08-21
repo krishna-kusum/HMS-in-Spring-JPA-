@@ -104,18 +104,15 @@ public class CommonController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		Patient patient = new Patient();
-		patient.setCounter(patientService.getLastPatientId());
-		
-		patient.setPersonId("P" + patient.getCounter());
-		patient.setName(request.getParameter("pName"));
-		patient.setAge(Integer.parseInt(request.getParameter("pAge")));
-		patient.setGender(request.getParameter("pGender"));
-		patient.setContactNumber(request.getParameter("pContact"));
-		patient.setAddress(request.getParameter("pAddress"));
-		patient.setSymptoms(request.getParameter("pSymptom"));
+		patient.setPatientName(request.getParameter("pName"));
+		patient.setPatientAge(Integer.parseInt(request.getParameter("pAge")));
+		patient.setPatientGender(request.getParameter("pGender"));
+		patient.setPatientContact(request.getParameter("pContact"));
+		patient.setPatientAddress(request.getParameter("pAddress"));
+		patient.setPatientSymptoms(request.getParameter("pSymptom"));
 		
 		String message = null;
-		if (patientDao.addPatient(patient))
+		if (patientService.addPatient(patient))
 			message = "Patient Addded Successfully";
 		else
 			message = "Patient Addition Failed";
@@ -138,18 +135,15 @@ public class CommonController {
 	public ModelAndView saveDoctorController(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		Doctor doctor = new Doctor();
+	
 		
-//		doctor.setCounter();
-		
-//		doctor.setPersonId("D" + patient.getCounter());
-		
-		doctor.setName(request.getParameter("dName"));
-		doctor.setAge(Integer.parseInt(request.getParameter("dAge")));
-		doctor.setGender(request.getParameter("dGender"));
-		doctor.setExperienceInYears(Integer.parseInt(request.getParameter("dExperience")));
-		doctor.setContactNumber(request.getParameter("dContact"));
-		doctor.setAddress(request.getParameter("dAddress"));
-		doctor.setDepartment(request.getParameter("dDepartment"));
+		doctor.setDoctorName(request.getParameter("dName"));
+		doctor.setDoctorAge(Integer.parseInt(request.getParameter("dAge")));
+		doctor.setDoctorGender(request.getParameter("dGender"));
+		doctor.setDoctorExperience(Integer.parseInt(request.getParameter("dExperience")));
+		doctor.setDoctorContact(request.getParameter("dContact"));
+		doctor.setDoctorAddress(request.getParameter("dAddress"));
+		doctor.setDoctorDepartment(request.getParameter("dDepartment"));
 		
 		String message = null;
 		if (adminService.registerDoctorToDatabase(doctor))
@@ -198,7 +192,7 @@ public ModelAndView removeDoctorController(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 
-		Patient patient = doctorService.getPatientProfile(request.getParameter("pId"));
+		Patient patient = patientService.getPatientById(request.getParameter("pId"));
 		if (patient != null) {
 			modelAndView.addObject("patient", patient);
 			modelAndView.setViewName("ShowPatient");
@@ -222,7 +216,7 @@ public ModelAndView removeDoctorController(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 
-		Patient patient = doctorService.getPatientProfile((String)session.getAttribute("userName"));
+		Patient patient = patientService.getPatientById((String)session.getAttribute("userName"));
 		if (patient != null) {
 			modelAndView.addObject("patient", patient);
 			modelAndView.setViewName("ShowPatient");

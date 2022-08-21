@@ -5,22 +5,41 @@ import java.util.List;
 import java.util.Map;
 
 import com.bean.Appointment;
+import com.bean.Doctor;
 import com.bean.Patient;
 import com.bean.Schedule;
 
 public interface DoctorService {
 	
-	boolean updatePatientProfile(String doctorId, String patientId, Map<String,String> editList);
 	
-	List<Schedule> getAvailableDoctors(Date date);
+	
+	List<Doctor> getAllDoctor();
+	
+	boolean addDoctor(Doctor doctor);
+	
+	boolean deleteDoctor(String doctorId);
 
+	Doctor getDoctorById(String doctorId);
+
+	String getLastDoctorId();
+	
+	String setDoctorId();
+	
 	Schedule getDoctorSchedule(String doctorId);
+	
+	List<Appointment> getMyAppointments(String id, int choice);
+	
+//	boolean updatePatientProfile(String doctorId, String patientId, Map<String,String> editList);
+//	
+//	List<Schedule> getAvailableDoctors(Date date);
+//
+	
+//
+//	Patient getPatientProfile(String patientId);
+//
+//	void displayAvailableDoctors(Date date);
+//
+//	boolean updateDoctorSchedule(String doctorId, Schedule schedule);
+//
 
-	Patient getPatientProfile(String patientId);
-
-	void displayAvailableDoctors(Date date);
-
-	boolean updateDoctorSchedule(String doctorId, Schedule schedule);
-
-	List<Appointment> getMyAppointments(String pid, int choice);
 }
