@@ -21,6 +21,9 @@ public interface AppointmentDao extends JpaRepository<Appointment, Integer>{
 	
 	@Query("Select a from Appointment a where patient_Id = :patientId")
 	List<Appointment> getAllAppointmentsByPatientId(@Param("patientId")String id);
+	
+	@Query(value = "CALL BOOK_APPOINTMENT(:pId,:dId);", nativeQuery = true)
+	void callProcedure(@Param("pId") String pId,@Param("pId") String dId);
 
 //	void appointment(String patient_id, String doc_id, Date new_date);
 //	

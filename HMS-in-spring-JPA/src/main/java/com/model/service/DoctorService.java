@@ -31,9 +31,13 @@ public interface DoctorService {
 	
 	List<Appointment> getMyAppointments(String id);
 	
+
+
+	List<Schedule> getAvailableDoctors(Date date);
+	
 //	boolean updatePatientProfile(String doctorId, String patientId, Map<String,String> editList);
 //	
-//	List<Schedule> getAvailableDoctors(Date date);
+//	
 //
 	
 //

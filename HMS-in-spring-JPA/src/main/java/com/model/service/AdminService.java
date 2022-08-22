@@ -22,7 +22,7 @@ public interface AdminService {
 	
 	boolean registerDoctorToDatabase(Doctor doctor); // add this to menu options in admin login
 	
-	List<Schedule> getAvailableDoctors(Date date);
+//	List<Schedule> getAvailableDoctors(Date date);
 
 	boolean removeDoctorFromDatabase(String doctorID);
 	

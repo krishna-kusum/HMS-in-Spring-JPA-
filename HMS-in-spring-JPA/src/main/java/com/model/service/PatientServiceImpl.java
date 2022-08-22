@@ -124,10 +124,7 @@ public class PatientServiceImpl implements PatientService {
 		return appointmentDao.getAllAppointmentsByPatientId(pid);
 	}
 //
-//	@Override
-//	public void requestAppointment(String id, String doc_id, Date date) {
-//		appointmentDaoImpl.appointment(id, doc_id, date);
-//	}
+	
 //
 	@Override
 	public boolean cancelAppointmentRequest(int aid) {
