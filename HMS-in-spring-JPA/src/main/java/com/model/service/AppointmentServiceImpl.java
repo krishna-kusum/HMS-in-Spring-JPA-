@@ -1,6 +1,8 @@
 package com.model.service;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,55 @@ public class AppointmentServiceImpl implements AppointmentService {
 	private ProcedureAppointmentDao procedureAppointmentDao;
 
 	@Override
-	public Appointment requestAppointment(String id, String doc_id, Date date) {
-		// TODO Auto-generated method stub
-		appointmentDao.callProcedure(id, doc_id);
+	public Appointment requestAppointment(String patientId, String doctorId, Date date) {
+		appointmentDao.callProcedure(patientId, doctorId);
 		ProcedureAppointment pA = procedureAppointmentDao.findTopByOrderByProcedureIdDesc();
-		return null;
+		
+		
+		
+		Time slot = pA.getStartSlot();
+		LocalTime endSlot = LocalTime.parse(pA.getEndSlot().toString());
+		
+//		Date date = date2;
+		List<Appointment> lastAppointments = appointmentDao.findAppointmentByDoctorIdAndDate(doctorId, date);
+		Appointment lastAppointment;
+		if(lastAppointments.isEmpty()) {
+			lastAppointment = null;
+			
+		}else {
+		lastAppointment = lastAppointments.get(lastAppointments.size()-1);
+		}
+		LocalTime newSlot;
+		if(lastAppointment!=null) {
+			Time lastSlot = lastAppointment.getSlot();
+			newSlot = LocalTime.parse(lastSlot.toString());
+			newSlot = newSlot.plusMinutes(20);
+		}else {
+			newSlot = LocalTime.parse(slot.toString());
+		}
+		
+		
+		
+
+		int a = newSlot.compareTo(endSlot);
+		
+		Appointment appointment = new Appointment();
+		
+		if(a != 0) {
+			appointment.setDate(date);
+			appointment.setDepartment(pA.getDept());
+			appointment.setDoctorId(doctorId);
+			appointment.setPatientId(patientId);
+			appointment.setDoctorName(pA.getDName());
+			appointment.setPatientName(pA.getPName());
+			appointment.setSlot(Time.valueOf(newSlot));
+			
+			appointmentDao.save(appointment);
+			
+			return appointmentDao.findById(appointmentDao.findTopByOrderByAppointmentIdDesc().getAppointmentId()).get();
+			
+		}	
+		return appointment;
 	}
 	
 	
