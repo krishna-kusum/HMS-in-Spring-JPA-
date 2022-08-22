@@ -106,8 +106,8 @@ select slot_start, slot_end into slot_s, slot_e
 from regular_schedule 
 where doctor_id = dId;
 
-select pId as 'Patient Id', pName as 'Patient Name', slot_s as 'Starting Time', slot_e as 'Ending Time', dId as 'Doctor Id', dName as 'Appointed Doctor',pDept as Department;
-
+insert ignore into procedureappointment
+value(pId,pName,slot_s,slot_e,dId,dName,pDept);
 END$$
 
 DELIMITER ;

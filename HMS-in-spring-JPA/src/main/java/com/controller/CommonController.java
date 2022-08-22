@@ -14,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bean.Appointment;
 import com.bean.Doctor;
 import com.bean.Patient;
+import com.bean.Schedule;
 import com.model.persistence.DoctorDao;
 import com.model.persistence.PatientDao;
 import com.model.service.AdminService;
+import com.model.service.AppointmentService;
 import com.model.service.DoctorService;
 import com.model.service.PatientService;
 import com.model.service.PatientServiceImpl;
@@ -40,6 +42,8 @@ public class CommonController {
 	private DoctorService doctorService;
 	@Autowired
 	private PatientService patientService;
+	@Autowired
+	private AppointmentService appointmentService;
 	
 	@RequestMapping("/")
 	public ModelAndView homePageController() {
@@ -234,16 +238,44 @@ public ModelAndView removeDoctorController(HttpServletRequest request) {
 	
 //	2. request appointment
 	@RequestMapping("/requestAppointment")
-	public ModelAndView requestAppointmentController(HttpServletRequest request) {
-		
-		return new ModelAndView("requestAppointmentPage");
+	public ModelAndView requestAppointmentController() {
+			return new ModelAndView("requestAppointmentPage");
 	}
 	
 //	2.1 generate appointment 
 	@RequestMapping("/generateAppointment")
-	public ModelAndView generateAppointmentController(HttpServletRequest request) {
+	public ModelAndView generateAppointmentController(HttpServletRequest request, HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		Date date = Date.valueOf(request.getParameter("appointmentDate"));
+		session.setAttribute("date", date);
+		List<Schedule> availableDoctorsSchedule = doctorService.getAvailableDoctors(date);
+		if(availableDoctorsSchedule != null) {
+			modelAndView.addObject( "availableScheduleList", availableDoctorsSchedule);
+			modelAndView.setViewName("ShowAvailableDoctorsSchedulePage");
+		}
+		else {
+			String message="No available schedules to display";
+			modelAndView.addObject("message", message);
+			modelAndView.setViewName("Output");
+		}
+		return modelAndView;
+	}
+	@RequestMapping("/bookAppointment")
+	public ModelAndView bookAppointmentController(HttpServletRequest request, HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		String doctorId = request.getParameter("dID");
+		Appointment appointments = appointmentService.requestAppointment((String)session.getAttribute("userName"), doctorId, (Date)session.getAttribute("date"));
+		if(appointments != null) {
+			modelAndView.addObject( "myAppointmentList", appointments);
+			modelAndView.setViewName("ShowMyAppointments");
+		}
+		else {
+			String message="No appointments to display";
+			modelAndView.addObject("message", message);
+			modelAndView.setViewName("Output");
+		}
 		
-		return new ModelAndView("generateAppointmentPage");
+		return modelAndView;
 	}
 	
 	

@@ -30,10 +30,16 @@ public interface ScheduleDao extends JpaRepository<Schedule,Integer>{
 	@Query(value = "delete from Schedule where doctorId = :doctorId")
 	void deleteScheduleByDoctorId(@Param("doctorId") String doctorId);
 	
+//	@Modifying
+//	@Transactional
+//	@Query(value="select s from Schedule s where s.availableDay = :date")
+//	List<Schedule> getAvailableDoctors(@Param("date") Date date);
 	@Modifying
 	@Transactional
-	@Query(value="select s from Schedule s where s.availableDay = :date")
-	List<Schedule> getAvailableDoctors(@Param("date") Date date);
+	@Query(value="select s from Schedule s where s.availableDay = :day")
+	List<Schedule> getAvailableDoctors(@Param("day") String day);
+	
+	
 //	boolean removeDoctorSchedule(String doctorId);
 
 //	Schedule getDoctorSchedule(String doctorId);

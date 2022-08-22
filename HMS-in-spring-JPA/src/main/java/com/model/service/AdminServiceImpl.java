@@ -1,6 +1,8 @@
 package com.model.service;
 
 import java.sql.Date;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +50,10 @@ public class AdminServiceImpl implements AdminService {
 		return doctorService.deleteDoctor(doctorID);
 	}
 
-	@Override
-	public List<Schedule> getAvailableDoctors(Date date) {
-		return scheduleDao.getAvailableDoctors(date);
-	}
+//	@Override
+//	public List<Schedule> getAvailableDoctors(Date date) {
+//		
+//	}
 
 	
 }

@@ -26,7 +26,7 @@ public interface PatientService {
 
 	boolean rescheduleAppointment(int aid, Date newDate);
 //
-//	void requestAppointment(String id, String doc_id, Date date);
+
 //
 	boolean cancelAppointmentRequest(int aid);
 //

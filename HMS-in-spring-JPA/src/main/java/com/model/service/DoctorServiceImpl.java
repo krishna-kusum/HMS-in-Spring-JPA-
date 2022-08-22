@@ -1,6 +1,8 @@
 package com.model.service;
 
 import java.sql.Date;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -105,6 +107,15 @@ public class DoctorServiceImpl implements DoctorService {
 	public List<Appointment> getMyAppointments(String id) {
 		return appointmentDao.getAllAppointmentsByDoctorId(id);
 	}
+
+	@Override
+	public List<Schedule> getAvailableDoctors(Date date) {
+		Format f = new SimpleDateFormat("EEEE");  
+		String day = f.format(date);
+		return scheduleDao.getAvailableDoctors(day);
+	}
+
+	
 
 //	@Autowired
 //	PatientDao patientDao;
