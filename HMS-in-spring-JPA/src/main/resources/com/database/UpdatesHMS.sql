@@ -165,3 +165,15 @@ values('D1000','Dr Pullen','Monday','10:00','12:00'),
       ('D1007','Dr Carey','Friday','03:00','05:00'),
       ('D1008','Dr Nervo','Wednesday','04:00','06:00'),
       ('D1009','Dr Hurt','Sunday','12:00','2:00');
+      
+      
+create table procedureAppointment(
+Procedure_Id int primary key auto_increment,
+Patient_id varchar(10),
+Patient_Name varchar(30),
+Starting_Time time,
+Ending_Time time,
+Doctor_id varchar(10),
+Doctor_Name varchar(30),
+Department varchar(30) 
+);

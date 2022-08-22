@@ -245,6 +245,9 @@ public ModelAndView removeDoctorController(HttpServletRequest request) {
 		
 		return new ModelAndView("generateAppointmentPage");
 	}
+	
+	
+	
 //	3. cancel appointment
 	@RequestMapping("/cancelAppointment")
 	public ModelAndView cancelAppointmentController(HttpServletRequest request, HttpSession session) {
