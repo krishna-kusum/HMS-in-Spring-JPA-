@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.bean.Appointment;
+import com.bean.Doctor;
 
 @Repository
 public interface AppointmentDao extends JpaRepository<Appointment, Integer>{
@@ -22,8 +23,14 @@ public interface AppointmentDao extends JpaRepository<Appointment, Integer>{
 	@Query("Select a from Appointment a where patient_Id = :patientId")
 	List<Appointment> getAllAppointmentsByPatientId(@Param("patientId")String id);
 	
+	@Modifying
+	@Transactional
 	@Query(value = "CALL BOOK_APPOINTMENT(:pId,:dId);", nativeQuery = true)
-	void callProcedure(@Param("pId") String pId,@Param("pId") String dId);
+	int callProcedure(@Param("pId") String pId,@Param("dId") String dId);
+	
+	List<Appointment> findAppointmentByDoctorIdAndDate(String doctorId, Date date);
+	
+	Appointment findTopByOrderByAppointmentIdDesc();
 
 //	void appointment(String patient_id, String doc_id, Date new_date);
 //	

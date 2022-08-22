@@ -263,7 +263,8 @@ public ModelAndView removeDoctorController(HttpServletRequest request) {
 	@RequestMapping("/bookAppointment")
 	public ModelAndView bookAppointmentController(HttpServletRequest request, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		String doctorId = request.getParameter("dID");
+		
+		String doctorId = request.getParameter("dId");
 		Appointment appointments = appointmentService.requestAppointment((String)session.getAttribute("userName"), doctorId, (Date)session.getAttribute("date"));
 		if(appointments != null) {
 			modelAndView.addObject( "myAppointmentList", appointments);
@@ -277,6 +278,9 @@ public ModelAndView removeDoctorController(HttpServletRequest request) {
 		
 		return modelAndView;
 	}
+	
+	
+	
 //	3. cancel appointment
 	@RequestMapping("/cancelAppointment")
 	public ModelAndView cancelAppointmentController(HttpServletRequest request, HttpSession session) {
