@@ -2,16 +2,19 @@ package com.controller;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bean.Appointment;
+import com.bean.Doctor;
 import com.bean.Patient;
 import com.bean.Schedule;
 import com.model.service.AppointmentService;
@@ -57,6 +60,8 @@ public class PatientController {
 	}
 	
 //	2.1 generate appointment 
+	
+	
 	@RequestMapping("/generateAppointment")
 	public ModelAndView generateAppointmentController(HttpServletRequest request, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -65,6 +70,7 @@ public class PatientController {
 		List<Schedule> availableDoctorsSchedule = doctorService.getAvailableDoctors(date);
 		if(availableDoctorsSchedule != null) {
 			modelAndView.addObject( "availableScheduleList", availableDoctorsSchedule);
+			modelAndView.addObject("command3",new Schedule());
 			modelAndView.setViewName("ShowAvailableDoctorsSchedulePage");
 		}
 		else {
@@ -74,12 +80,22 @@ public class PatientController {
 		}
 		return modelAndView;
 	}
+	
+//	@ModelAttribute("availableDoctorIds")
+	public List<String> getAvailableDoctorIds(HttpSession session){
+		List<Schedule> availableDoctorsSchedule = doctorService.getAvailableDoctors(Date.valueOf((String)(session.getAttribute("date"))));
+		
+		return availableDoctorsSchedule.stream().
+				map(Schedule::getDoctorId).
+				collect(Collectors.toList());
+	}
+	
 	@RequestMapping("/bookAppointment")
-	public ModelAndView bookAppointmentController(HttpServletRequest request, HttpSession session) {
+	public ModelAndView bookAppointmentController(@ModelAttribute("command2") Schedule schedule, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		String doctorId = request.getParameter("dId");
-		Appointment appointments = appointmentService.requestAppointment((String)session.getAttribute("userName"), doctorId, (Date)session.getAttribute("date"));
+//		String doctorId = request.getParameter("dId");
+		Appointment appointments = appointmentService.requestAppointment((String)session.getAttribute("userName"), schedule.getDoctorId(), (Date)session.getAttribute("date"));
 		if(appointments != null) {
 			modelAndView.addObject( "myAppointmentList", appointments);
 			modelAndView.setViewName("ShowMyAppointments");

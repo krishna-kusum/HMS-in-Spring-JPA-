@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bean.Doctor;
+import com.bean.Patient;
 import com.bean.Schedule;
 import com.model.persistence.DoctorDao;
 import com.model.persistence.PatientDao;
@@ -20,6 +21,8 @@ public class AdminServiceImpl implements AdminService {
 	private DoctorDao doctorDao;
 	@Autowired
 	private PatientDao patientDao;
+	@Autowired
+	private PatientService patientService;
 	@Autowired
 	private ScheduleDao scheduleDao;
 	
@@ -46,6 +49,24 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public boolean removeDoctorFromDatabase(String doctorID) {
 		return doctorService.deleteDoctor(doctorID);
+	}
+	
+	@Override
+	public List<Patient> getAllPatient() {
+		// TODO Auto-generated method stub
+		return patientService.getAllPatient();
+	}
+
+	@Override
+	public List<Doctor> getAllDoctor() {
+		// TODO Auto-generated method stub
+		return doctorService.getAllDoctor();
+	}
+
+	@Override
+	public boolean removePatientFromDatabase(String patientId) {
+		// TODO Auto-generated method stub
+		return patientService.deletePatient(patientId);
 	}
 
 //	@Override

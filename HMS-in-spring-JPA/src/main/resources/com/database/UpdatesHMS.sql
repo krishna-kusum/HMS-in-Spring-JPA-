@@ -31,7 +31,9 @@ id varchar(5) not null,
 password varchar(15)
 );
 
-
+insert into login_credentials values('A1001', '@dmin$$');
+insert into login_credentials values('D1000','D1000');
+insert into login_credentials values('P101','P101');
 
 drop table appointments;
 
@@ -68,9 +70,7 @@ values('P101','Bhuwnesh', 'm', 24, '9876987655', '11, Welcome Shpg Centre, Old P
 
 
 
-insert into login_credentials values('A1001', '@dmin$$');
-insert into login_credentials values('D1000','D1000');
-insert into login_credentials values('P101','P101');
+
 -- appointment
 
 USE `hospital`;
