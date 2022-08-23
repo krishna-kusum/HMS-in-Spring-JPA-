@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Thank you for Registering at HMS.</h1>
+<br>
+<h2 th:text="${message}"></h2>
+<br> <br>
+	<form action="/registerPatient" method="post">
+	<label>Enter Password : </label>
+		 <input type="text" name="password"><br><br>
+		<input type="submit" name="Submit" value="Submit">
+		
+	</form>
+<br> <br>
+<a href="./">Go To Main Page</a>
+</body>
+</html>

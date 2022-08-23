@@ -16,7 +16,7 @@ import com.model.service.ValidateUserService;
 public class ValidationController {
 	
 	@Autowired
-	private ValidateUserService validate;
+	private ValidateUserService validateUserService;
 	@Autowired
 	private PatientService patientService;
 	
@@ -30,7 +30,7 @@ public class ValidationController {
 		session.setAttribute("userName", userName);
 		
 		
-		 if(validate.isAdmin(userName, password)) {
+		 if(validateUserService.isValid(userName, password)) {
 			 if(userName.toUpperCase().charAt(0) == 'A' ) {
 				 
 				 modelAndView.setViewName("adminPostLogin");
@@ -40,9 +40,9 @@ public class ValidationController {
 				 modelAndView.setViewName("patientPostLogin");
 			 }
 		}else {
-			String message = "Invalid Credentials.";
-			modelAndView.addObject("message",message);
-			modelAndView.setViewName("Output");
+			
+			modelAndView.addObject("message", "Invalid Credentials");
+			modelAndView.setViewName("Login");
 		}
 		
 	
@@ -53,8 +53,8 @@ public class ValidationController {
 	
 //  Registering Patient--------------------------------------------------------------------------------------------------------------------------------------
 	
-	@RequestMapping("/savePatient")
-	public ModelAndView savePatientController(HttpServletRequest request,HttpSession session) {
+	@RequestMapping("/inputDetailsToRegisterPatient")
+	public ModelAndView inputDetailsToRegisterPatientController(HttpServletRequest request,HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		Patient patient = new Patient();
@@ -66,15 +66,39 @@ public class ValidationController {
 		patient.setPatientSymptoms(request.getParameter("pSymptom"));
 		
 		String message = null;
-		if (patientService.addPatient(patient))
-			message = "Patient Added Successfully";
-		else
-			message = "Patient Addition Failed";
+		Patient newPatient = patientService.addPatient(patient);
+		if (newPatient != null) {
+			session.setAttribute("userName", newPatient.getPatientId());
+			
+			modelAndView.addObject("message", " Your Patient ID for login is :"+newPatient.getPatientId()+". Please keep it for future login purposes.");
+			modelAndView.setViewName("inputDetailsToRegisterPatient");
+			
+			
+		}
+		else {
+			modelAndView.addObject("message", "Failed to register Patient. Please try again.");
+			modelAndView.setViewName("Login");
 
-		modelAndView.addObject("message", message);
-		modelAndView.setViewName("Output");
+		
+	}
+		
 
 		return modelAndView;
 	}
 
+	@RequestMapping("/registerPatient")
+	public ModelAndView registerPatientController(HttpServletRequest request,HttpSession session) {
+		
+		String password = request.getParameter("password");
+		String userName = (String) session.getAttribute("userName");
+		
+		String message;
+		if(validateUserService.registerUser(userName, password)) {
+			message = "Patient Registered to Database Successfully";
+		}else {
+			message = "Failed to register Patient. Please try again after some time.";
+		}
+		
+		return new ModelAndView("Output", "message", message);
+	}
 }

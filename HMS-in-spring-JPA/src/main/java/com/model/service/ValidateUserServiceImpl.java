@@ -14,30 +14,10 @@ import com.model.persistence.PatientDao;
 public class ValidateUserServiceImpl implements ValidateUserService {
 	@Autowired
 	private LoginDao loginDao;
-	@Autowired
-	private PatientDao patientDao;
-	@Autowired
-	private DoctorDao doctorDao ;
 	
-	
-	
-
-	
-	
-//	@Override
-//	public boolean registerPatient(Patient patient) {
-//		return patientDao.save(patient);
-//	}
-
-//	@Override
-//	public boolean registerDoctor(Doctor doctor) {
-//		return doctorDao.addDoctor(doctor);
-//	}
-
 	@Override
-	public boolean isPatient(String id, String Password) {
+	public boolean isValid(String id, String Password) {
 		
-//		String password =  loginDao.findPasswordById(id);
 		Login login =  loginDao.findPasswordById(id);
 		if(login == null)
 			return false;
@@ -49,32 +29,9 @@ public class ValidateUserServiceImpl implements ValidateUserService {
 	}
 
 	@Override
-	public boolean isDoctor(String id, String Password) {
-//		return loginDao.findPasswordById(id);
-//		String password =  loginDao.findPasswordById(id);
-		Login login =  loginDao.findPasswordById(id);
-		if(login == null)
-			return false;
-		String password = login.getPassword();
-		if(Password.equals(password))
+	public boolean registerUser(String id, String password) {
+		if(loginDao.save(new Login(id,password)) != null)
 			return true;
 		return false;
 	}
-
-	@Override
-	public boolean isAdmin(String id, String Password) {
-//		return loginDao.findPasswordById(id);
-		Login login =  loginDao.findPasswordById(id);
-		if(login == null)
-			return false;
-		String password = login.getPassword();
-		if(Password.equals(password))
-			return true;
-		return false;
-	}
-
-//	@Override
-//	public boolean registerUser(String id, String Password) {
-//		return loginDao.registerUser(id, Password,2);
-//	}
 }

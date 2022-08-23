@@ -12,7 +12,7 @@ public interface PatientService {
 	
 	List<Patient> getAllPatient();
 	
-	boolean addPatient(Patient patient);
+	Patient addPatient(Patient patient);
 	
 	boolean deletePatient(String patientId);
 

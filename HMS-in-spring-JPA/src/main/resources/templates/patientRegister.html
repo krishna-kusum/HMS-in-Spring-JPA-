@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/savePatient" method="post">
+<form action="/inputDetailsToRegisterPatient" method="post">
 	Enter Patient Name : <input type="text" name="pName"><br><br>
 	Enter Patient Age : <input type="text" name="pAge"><br><br>
 	Enter Patient Gender : <select name="pGender">
@@ -18,5 +18,7 @@
 	<input type="submit" value="Proceed">
 	
 </form>
+<br><br>
+<h3 th:text="${message}" style="color: red"></h3>
 </body>
 </html>

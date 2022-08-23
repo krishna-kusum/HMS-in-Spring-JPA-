@@ -53,7 +53,7 @@ public class AdminController {
 
 	@RequestMapping("/removeDoctorByID")
 	public ModelAndView removeDoctorByIdController() {
-		return new ModelAndView("DoctorIdAccepter");
+		return new ModelAndView("removeDoctor");
 	}
 	@RequestMapping("/removeDoctor")
 public ModelAndView removeDoctorController(HttpServletRequest request) {

@@ -9,13 +9,13 @@ import com.bean.Patient;
 
 @Service
 public interface ValidateUserService {
-//	boolean registerUser(String id, String Password);
+	boolean registerUser(String id, String Password);
 	
-	boolean isPatient(String id, String Password);
+	boolean isValid(String id, String Password);
 	
-	boolean isDoctor(String id, String Password);
+//	boolean isDoctor(String id, String Password);
 	
-	boolean isAdmin(String id, String Password);
+//	boolean isAdmin(String id, String Password);
 	
 //	boolean registerPatient(Patient patient);
 	

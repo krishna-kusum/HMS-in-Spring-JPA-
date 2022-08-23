@@ -28,25 +28,15 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public boolean addPatient(Patient patient) {
-		// TODO Auto-generated method stub
-		Patient patient2 = new Patient();
-		patient2.setPatientId(setNewPatientId());
-		patient2.setPatientName(patient.getPatientName());
-		patient2.setPatientGender(patient.getPatientGender());
-		patient2.setPatientAge(patient.getPatientAge());
-		patient2.setPatientAddress(patient.getPatientAddress());
-		patient2.setPatientContact(patient.getPatientContact());
-		patient2.setPatientSymptoms(patient.getPatientSymptoms());
-		if(patientDao.save(patient2) != null)
-			return true;
-		else
-			return false;
+	public Patient addPatient(Patient patient) {
+		
+		patient.setPatientId(setNewPatientId());
+		
+		return patientDao.save(patient);
 	}
 
 	@Override
 	public boolean deletePatient(String patientId) {
-		// TODO Auto-generated method stub
 		Patient patient = getPatientById(patientId);
 		if(patient != null) {
 			patientDao.deleteById(patientId);
