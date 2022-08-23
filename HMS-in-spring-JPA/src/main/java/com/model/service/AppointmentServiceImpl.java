@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.bean.Appointment;
+import com.bean.Patient;
 import com.bean.PrevSlots;
 import com.bean.ProcedureAppointment;
 import com.model.persistence.AppointmentDao;
@@ -22,6 +23,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 	private AppointmentDao appointmentDao;
 	@Autowired
 	private ProcedureAppointmentDao procedureAppointmentDao;
+	@Autowired
+	private PatientService patientService;
 
 	@Override
 	public Appointment requestAppointment(String patientId, String doctorId, Date date) {
@@ -74,6 +77,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 		}	
 		return appointment;
 	}
+
+	
 	
 	
 	

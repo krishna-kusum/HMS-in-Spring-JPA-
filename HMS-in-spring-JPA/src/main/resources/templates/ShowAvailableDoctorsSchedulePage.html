@@ -34,6 +34,13 @@
 	<input type="submit" name="dId" value="Book">
 </form>
 <br> <br>
+<form action="#"  method="post" th:object="${command3}" th:action="@{./bookAppointment}">
+	Select Employee ID : <select th:field="*{doctorId}">
+	<option th:each="id : ${availableDoctorIds}" th:value="${id}" th:label="${id}"></option>
+	</select><br><br>
+	<input type="submit" value="Choose Doctor">
+</form>
+<br><br>
 <a href="./">Go To Main Page</a>
 </body>
 </html>
