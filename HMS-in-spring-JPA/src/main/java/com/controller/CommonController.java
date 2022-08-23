@@ -90,6 +90,10 @@ public class CommonController {
 			 }else  if(userName.toUpperCase().charAt(0) == 'P' ) {
 				 modelAndView.setViewName("patientPostLogin");
 			 }
+		}else {
+			String message = "Invalid Credentials.";
+			modelAndView.addObject("message",message);
+			modelAndView.setViewName("Output");
 		}
 		
 		
