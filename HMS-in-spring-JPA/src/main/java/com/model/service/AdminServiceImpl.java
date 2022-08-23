@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bean.Doctor;
 import com.bean.Schedule;
 import com.model.persistence.DoctorDao;
-import com.model.persistence.DoctorDaoImpl;
 import com.model.persistence.PatientDao;
-import com.model.persistence.PatientDaoImpl;
 import com.model.persistence.ScheduleDao;
 @Service
 public class AdminServiceImpl implements AdminService {

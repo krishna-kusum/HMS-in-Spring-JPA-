@@ -13,7 +13,6 @@ import com.bean.Appointment;
 import com.bean.PrevSlots;
 import com.bean.ProcedureAppointment;
 import com.model.persistence.AppointmentDao;
-import com.model.persistence.AppointmentDaoImpl;
 import com.model.persistence.ProcedureAppointmentDao;
 
 @Service
