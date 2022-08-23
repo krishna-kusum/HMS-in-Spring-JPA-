@@ -11,9 +11,7 @@ import com.bean.Appointment;
 import com.bean.Doctor;
 import com.bean.Patient;
 import com.model.persistence.AppointmentDao;
-import com.model.persistence.AppointmentDaoImpl;
 import com.model.persistence.PatientDao;
-import com.model.persistence.PatientDaoImpl;
 
 
 @Service

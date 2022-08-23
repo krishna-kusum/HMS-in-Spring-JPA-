@@ -7,11 +7,8 @@ import com.bean.Doctor;
 import com.bean.Login;
 import com.bean.Patient;
 import com.model.persistence.DoctorDao;
-import com.model.persistence.DoctorDaoImpl;
 import com.model.persistence.LoginDao;
-import com.model.persistence.LoginDaoImpl;
 import com.model.persistence.PatientDao;
-import com.model.persistence.PatientDaoImpl;
 
 @Service
 public class ValidateUserServiceImpl implements ValidateUserService {
